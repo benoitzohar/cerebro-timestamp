@@ -1,0 +1,45 @@
+{
+    "name": "cerebro-timestamp",
+    "version": "0.1.0",
+    "description": "Cerebro plugin to encode/decode timestamps",
+    "license": "MIT",
+    "repository": "benoitzohar/cerebro-timestamp",
+    "author": {
+        "name": "Benoit Zohar",
+        "email": "benoit.zohar@gmail.com"
+    },
+    "engines": {
+        "node": ">=4"
+    },
+    "scripts": {
+        "build": "webpack && babili dist -d dist --compact --no-comments",
+        "debug": "./scripts/debug",
+        "debug:windows": "scripts\\debug.bat",
+        "prepublish": "rimraf ./dist && npm run build",
+        "test": "./node_modules/.bin/jest src/*",
+        "test:watch": "./node_modules/.bin/jest src/* --watchAll"
+    },
+    "main": "dist/index.js",
+    "keywords": [
+        "cerebro",
+        "cerebro-plugin",
+        "timestamp"
+    ],
+    "devDependencies": {
+        "babel-cli": "^6.18.0",
+        "babel-loader": "^6.2.8",
+        "babel-plugin-syntax-jsx": "^6.18.0",
+        "babel-plugin-transform-react-jsx": "^6.8.0",
+        "babili": "0.0.9",
+        "cerebro-tools": "^0.1.0",
+        "css-loader": "^0.26.0",
+        "react": "^15.4.1",
+        "rimraf": "^2.6.1",
+        "style-loader": "^0.13.1",
+        "url-loader": "^0.5.7",
+        "webpack": "2.1.0-beta.27"
+    },
+    "dependencies": {
+        "moment": "^2.17.1"
+    }
+}
