@@ -14,7 +14,7 @@ const plugin = ({term, display, actions}) => {
     const match = term.match(/ts\s(.*)/)
     if (match) {
         const input= match[1]
-        console.log("[debug] input", input)
+        
         if (input) {
 
             const type = getType(input) //String

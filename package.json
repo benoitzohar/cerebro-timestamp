@@ -1,6 +1,6 @@
 {
     "name": "cerebro-timestamp",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Cerebro plugin to encode/decode timestamps",
     "license": "MIT",
     "repository": "benoitzohar/cerebro-timestamp",
