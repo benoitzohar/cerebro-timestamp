@@ -1,4 +1,4 @@
-# cerebro-rot13
+# cerebro-timestamp
 
 > [Cerebro](https://cerebroapp.com) plugin to encode/decode timestamps and dates
 
