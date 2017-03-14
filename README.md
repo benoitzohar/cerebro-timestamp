@@ -10,17 +10,22 @@
 
 ## Usage
 
-In Cerebro, type `ts` and a timestamp (Unix time) or a date to encode/decode it. Use <kbd>⌘+C</kbd> or <kbd>↩</kbd> to copy the default result value to clipboard or go down first to select a value to copy.
+In Cerebro, type a timestamp (Unix time), or `ts` and a timestamp (Unix time) or a date to encode/decode it. Use <kbd>⌘+C</kbd> or <kbd>↩</kbd> to copy the default result value to clipboard or go down first to select a value to copy.
 
-`ts [input]` where `input` can be :
+
  - Number of *seconds* since epoch:  
+ `1488570776` => 2017-03-03T19:52:56Z  
  `ts 1488570776` => 2017-03-03T19:52:56Z  
 
  - Number of *milliseconds* since epoch:  
+ `1488570776213` => 2017-03-03T19:52:56Z  
  `ts 1488570776213` => 2017-03-03T19:52:56Z  
 
  - Date in the Y-m-d format:  
  `ts 2017-03-03` => 1488570776
+
+ - Current date:  
+ `ts now` => All outputs for the current timestamp
 
 
 Available outputs are:
