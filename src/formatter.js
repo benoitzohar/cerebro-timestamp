@@ -10,6 +10,7 @@ const INPUT_FORMAT = {
     NOW: 'now',
     TS_S: 'ts_s',
     TS_MS: 'ts_ms',
+    TS_NS: 'ts_ns',
     ARRAY: 'array',
     OTHER: 'other'
 }
@@ -25,6 +26,10 @@ const OUTPUT_FORMAT = {
     TIMESTAMP_MS:  {
         title: 'Unix millisecond time',
         format: 'x'
+    },
+    TIMESTAMP_NS:  {
+        title: 'Unix nanosecond time',
+        format: 'x000000' // momentjs doesn't support ns formatting :(
     },
     ISO:  {
         title: 'ISO date and time',
@@ -63,12 +68,14 @@ module.exports.getType = (input) => {
     }
     //if this is a timestamp
     else if (parseInt(input) == String(input)) {
-        //is it a ms or a s timestamp
+        // guess timestamp precision
         if (String(input).length < 12) {
             return INPUT_FORMAT.TS_S
         }
-        else {
+        else if (String(input).length < 15) {
             return INPUT_FORMAT.TS_MS
+        } else {
+            return INPUT_FORMAT.TS_NS
         }
     }
 
@@ -89,6 +96,9 @@ module.exports.parse = (input, type) => {
             break
         case INPUT_FORMAT.TS_MS:
             return moment.unix(parseInt(input) / 1000)
+            break
+        case INPUT_FORMAT.TS_NS:
+            return moment.unix(parseInt(input) / 1000000000)
             break
         case INPUT_FORMAT.ARRAY:
             return moment(input)
