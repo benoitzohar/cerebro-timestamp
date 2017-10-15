@@ -39,12 +39,14 @@ const plugin = ({ term, display, actions }) => {
                 switch (type) {
                     case INPUT_FORMAT.TS_S:
                     case INPUT_FORMAT.TS_MS:
+                    case INPUT_FORMAT.TS_NS:
                         typesInOrder = [
                             OUTPUT_FORMAT.SHORT,
                             OUTPUT_FORMAT.LONG,
                             OUTPUT_FORMAT.FULL,
                             OUTPUT_FORMAT.ISO,
                             OUTPUT_FORMAT.TIMESTAMP_MS,
+                            OUTPUT_FORMAT.TIMESTAMP_NS,
                             OUTPUT_FORMAT.TIMESTAMP
                         ];
                         break;
@@ -55,6 +57,7 @@ const plugin = ({ term, display, actions }) => {
                         typesInOrder = [
                             OUTPUT_FORMAT.TIMESTAMP,
                             OUTPUT_FORMAT.TIMESTAMP_MS,
+                            OUTPUT_FORMAT.TIMESTAMP_NS,
                             OUTPUT_FORMAT.SHORT,
                             OUTPUT_FORMAT.LONG,
                             OUTPUT_FORMAT.FULL,
