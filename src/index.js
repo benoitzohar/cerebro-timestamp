@@ -15,15 +15,16 @@ const plugin = ({ term, display, actions }) => {
 
     //fall back on the ts prefix
     if (!match) {
-        match = term.match(/^ts\s(.*)/);
+        match = term.match(/^tsu?\s(.*)/);
     }
 
     if (match) {
+        const isUTC = term.startsWith('tsu');
         const input = match[1];
 
         if (input) {
             const type = getType(input); //String
-            const moment = parse(input, type); //momentJS object
+            const moment = parse(input, type, isUTC); //momentJS object
 
             if (!moment.isValid()) {
                 display({
@@ -74,7 +75,7 @@ const plugin = ({ term, display, actions }) => {
                         id: `cerebro-timestamp-${format.title}`,
                         icon,
                         clipboard: res,
-                        subtitle: format.title,
+                        subtitle: format.title.replace('{{TIMEZONE}}', isUTC ? 'UTC' : 'local time'),
                         onSelect: () => {
                             actions.copyToClipboard(res);
                         }

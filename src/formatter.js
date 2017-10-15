@@ -32,19 +32,19 @@ const OUTPUT_FORMAT = {
         format: 'x000000' // momentjs doesn't support ns formatting :(
     },
     ISO:  {
-        title: 'ISO date and time',
+        title: 'ISO date and time ({{TIMEZONE}})',
         format: ''
     },
     SHORT:  {
-        title: 'Short date and time',
+        title: 'Short date and time ({{TIMEZONE}})',
         format: 'L h:mm:ss a'
     },
     LONG:  {
-        title: 'Long date and time',
+        title: 'Long date and time ({{TIMEZONE}})',
         format: 'LLL'
     },
     FULL:  {
-        title: 'Full date and time',
+        title: 'Full date and time ({{TIMEZONE}})',
         format: 'LLLL'
     }
 }
@@ -86,26 +86,34 @@ module.exports.getType = (input) => {
  *
  * @return momentJS
  **/
-module.exports.parse = (input, type) => {
+module.exports.parse = (input, type, isUTC) => {
+    let result;
+
     switch(type) {
         case INPUT_FORMAT.NOW:
-            return moment()
+            result = moment()
             break
         case INPUT_FORMAT.TS_S:
-            return moment.unix(parseInt(input))
+            result = moment.unix(parseInt(input))
             break
         case INPUT_FORMAT.TS_MS:
-            return moment.unix(parseInt(input) / 1000)
+            result = moment.unix(parseInt(input) / 1000)
             break
         case INPUT_FORMAT.TS_NS:
-            return moment.unix(parseInt(input) / 1000000000)
+            result = moment.unix(parseInt(input) / 1000000000)
             break
         case INPUT_FORMAT.ARRAY:
-            return moment(input)
+            result = moment(input)
             break
         default:
-            return moment(input)
+            result = moment(input)
     }
+
+    if (isUTC) {
+        result = result.utc();
+    }
+
+    return result;
 }
 
 /*
