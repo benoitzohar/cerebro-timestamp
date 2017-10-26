@@ -47,7 +47,8 @@ const plugin = ({ term, display, actions }) => {
                         OUTPUT_FORMAT.ISO,
                         OUTPUT_FORMAT.TIMESTAMP_MS,
                         OUTPUT_FORMAT.TIMESTAMP_NS,
-                        OUTPUT_FORMAT.TIMESTAMP
+                        OUTPUT_FORMAT.TIMESTAMP,
+                        OUTPUT_FORMAT.WEEK
                     ];
                     break;
                 case INPUT_FORMAT.NOW:
@@ -61,7 +62,8 @@ const plugin = ({ term, display, actions }) => {
                         OUTPUT_FORMAT.SHORT,
                         OUTPUT_FORMAT.LONG,
                         OUTPUT_FORMAT.FULL,
-                        OUTPUT_FORMAT.ISO
+                        OUTPUT_FORMAT.ISO,
+                        OUTPUT_FORMAT.WEEK
                     ];
                     break;
             }
