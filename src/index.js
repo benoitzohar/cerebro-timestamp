@@ -15,73 +15,71 @@ const plugin = ({ term, display, actions }) => {
 
     //fall back on the ts prefix
     if (!match) {
-        match = term.match(/^tsu?\s(.*)/);
+        match = term.match(/^tsu?\s?(.*)/);
     }
 
     if (match) {
         const isUTC = term.startsWith('tsu');
         const input = match[1];
 
-        if (input) {
-            const type = getType(input); //String
-            const moment = parse(input, type, isUTC); //momentJS object
+        const type = getType(input); //String
+        const moment = parse(input, type, isUTC); //momentJS object
 
-            if (!moment.isValid()) {
-                display({
-                    title: ERROR_UNKNOWN,
-                    id: 'cerebro-timestamp-error',
-                    icon,
-                    subtitle: ''
-                });
-            } else {
-                //prepare appopriate order for rows
-                let typesInOrder;
+        if (!moment.isValid()) {
+            display({
+                title: ERROR_UNKNOWN,
+                id: 'cerebro-timestamp-error',
+                icon,
+                subtitle: ''
+            });
+        } else {
+            //prepare appopriate order for rows
+            let typesInOrder;
 
-                switch (type) {
-                    case INPUT_FORMAT.TS_S:
-                    case INPUT_FORMAT.TS_MS:
-                    case INPUT_FORMAT.TS_NS:
-                        typesInOrder = [
-                            OUTPUT_FORMAT.SHORT,
-                            OUTPUT_FORMAT.LONG,
-                            OUTPUT_FORMAT.FULL,
-                            OUTPUT_FORMAT.ISO,
-                            OUTPUT_FORMAT.TIMESTAMP_MS,
-                            OUTPUT_FORMAT.TIMESTAMP_NS,
-                            OUTPUT_FORMAT.TIMESTAMP
-                        ];
-                        break;
-                    case INPUT_FORMAT.NOW:
-                    case INPUT_FORMAT.ARRAY:
-                    case INPUT_FORMAT.OTHER:
-                    default:
-                        typesInOrder = [
-                            OUTPUT_FORMAT.TIMESTAMP,
-                            OUTPUT_FORMAT.TIMESTAMP_MS,
-                            OUTPUT_FORMAT.TIMESTAMP_NS,
-                            OUTPUT_FORMAT.SHORT,
-                            OUTPUT_FORMAT.LONG,
-                            OUTPUT_FORMAT.FULL,
-                            OUTPUT_FORMAT.ISO
-                        ];
-                        break;
-                }
-
-                typesInOrder.forEach(format => {
-                    const res = output(moment, format);
-
-                    display({
-                        title: res,
-                        id: `cerebro-timestamp-${format.title}`,
-                        icon,
-                        clipboard: res,
-                        subtitle: format.title.replace('{{TIMEZONE}}', isUTC ? 'UTC' : 'local time'),
-                        onSelect: () => {
-                            actions.copyToClipboard(res);
-                        }
-                    });
-                });
+            switch (type) {
+                case INPUT_FORMAT.TS_S:
+                case INPUT_FORMAT.TS_MS:
+                case INPUT_FORMAT.TS_NS:
+                    typesInOrder = [
+                        OUTPUT_FORMAT.SHORT,
+                        OUTPUT_FORMAT.LONG,
+                        OUTPUT_FORMAT.FULL,
+                        OUTPUT_FORMAT.ISO,
+                        OUTPUT_FORMAT.TIMESTAMP_MS,
+                        OUTPUT_FORMAT.TIMESTAMP_NS,
+                        OUTPUT_FORMAT.TIMESTAMP
+                    ];
+                    break;
+                case INPUT_FORMAT.NOW:
+                case INPUT_FORMAT.ARRAY:
+                case INPUT_FORMAT.OTHER:
+                default:
+                    typesInOrder = [
+                        OUTPUT_FORMAT.TIMESTAMP,
+                        OUTPUT_FORMAT.TIMESTAMP_MS,
+                        OUTPUT_FORMAT.TIMESTAMP_NS,
+                        OUTPUT_FORMAT.SHORT,
+                        OUTPUT_FORMAT.LONG,
+                        OUTPUT_FORMAT.FULL,
+                        OUTPUT_FORMAT.ISO
+                    ];
+                    break;
             }
+
+            typesInOrder.forEach(format => {
+                const res = output(moment, format);
+
+                display({
+                    title: res,
+                    id: `cerebro-timestamp-${format.title}`,
+                    icon,
+                    clipboard: res,
+                    subtitle: format.title.replace('{{TIMEZONE}}', isUTC ? 'UTC' : 'local time'),
+                    onSelect: () => {
+                        actions.copyToClipboard(res);
+                    }
+                });
+            });
         }
     }
 };
