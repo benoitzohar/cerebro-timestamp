@@ -15,7 +15,7 @@ const plugin = ({ term, display, actions }) => {
 
     //fall back on the ts prefix
     if (!match) {
-        match = term.match(/^tsu?\s*($|.*)/);
+        match = term.match(/^tsu?\s?(.*)/);
     }
 
     if (match) {
