@@ -46,6 +46,10 @@ const OUTPUT_FORMAT = {
     FULL:  {
         title: 'Full date and time ({{TIMEZONE}})',
         format: 'LLLL'
+    },
+    WEEK: {
+        title: 'Week number ({{TIMEZONE}})',
+        format: '[Week] w'
     }
 }
 
